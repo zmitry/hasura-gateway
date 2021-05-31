@@ -1,0 +1,49 @@
+schema {
+  query: query_root
+  mutation: mutation_root
+}
+
+enum Role {
+  ADMIN
+  EDITOR
+  CUSTOMER
+}
+
+type Organization {
+  id: ID!
+  name: String!
+}
+
+type User {
+  id: ID!
+  email: String!
+  password: String!
+  role: Role!
+  organization: Organization
+}
+
+type query_root {
+  hello: String
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+input RegisterInput {
+  email: String!
+  password: String!
+}
+
+type AuthPayload {
+  user: User
+}
+
+type mutation_root {
+  login(input: LoginInput): AuthPayload
+  register(input: RegisterInput): AuthPayload
+  passwordReset(email: String!): AuthPayload
+  refreshToken: String
+  logout: String
+}

@@ -1,0 +1,14 @@
+query GetUsersByEmail($email: bpchar) {
+  users(where: { email: { _eq: $email } }) {
+    email
+    password
+    id
+  }
+}
+
+mutation AddUser($email: bpchar, $password: String!) {
+  insert_users_one(object: { email: $email, password: $password }) {
+    id
+    email
+  }
+}
